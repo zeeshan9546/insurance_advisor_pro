@@ -1,7 +1,6 @@
 # ============================================
 # FILE: advisor_app/policy_agent.py
 # ============================================
-from google.adk.agents import LlmAgent
 from config.gemini_client import ask_gemini
 
 
@@ -19,33 +18,27 @@ def policy_selection_tool(policy_type: str, additional_detail: str) -> str:
     Returns:
         Policy selection confirmation
     """
+    # Log received input
+    print(f"[POLICY] Received - Type: {policy_type}, Detail: {additional_detail}")
+    
+    # Normalize input
     policy_type_lower = policy_type.lower().strip()
     
+    # Validate policy type
     if policy_type_lower not in VALID_POLICY_TYPES:
-        return f"""✗ INVALID POLICY TYPE
+        print(f"[POLICY]  INVALID - Not in {VALID_POLICY_TYPES}")
+        
+        return f""" INVALID POLICY TYPE
 Selected: {policy_type}
 Valid options: Health, Life, Vehicle
 
 Please select one of the three policy types."""
     
-    return f"""✓ POLICY SELECTED
+    # Log success
+    print(f"[POLICY]  VALID - Policy type accepted")
+    
+    return f""" POLICY SELECTED
 Policy Type: {policy_type}
 Details: {additional_detail}
 
 Your policy preference has been recorded. Proceeding to risk analysis..."""
-
-
-policy_agent = LlmAgent(
-    model="gemini-2.0-flash-exp",
-    name="policy_selection_agent",
-    description="Handles policy type selection.",
-    instruction="""You are the Policy Selection Agent.
-
-Your job:
-1. Ask for policy type (Health/Life/Vehicle)
-2. Ask follow-up based on type
-3. Confirm selection
-
-Do NOT do risk analysis.""",
-    tools=[],
-)

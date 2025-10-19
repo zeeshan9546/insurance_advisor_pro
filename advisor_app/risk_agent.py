@@ -1,7 +1,6 @@
 # ============================================
 # FILE: advisor_app/risk_agent.py
 # ============================================
-from google.adk.agents import LlmAgent
 from config.gemini_client import ask_gemini
 
 
@@ -18,36 +17,52 @@ def risk_analysis_tool(exercise_frequency: str, smoking_status: str, high_risk_h
     Returns:
         Risk assessment result
     """
-    # Calculate risk score
+    
+    # Log received input
+    print(f"[RISK] Received - Exercise: {exercise_frequency}, Smoking: {smoking_status}")
+    print(f"[RISK] Hobbies: {high_risk_hobbies}, Stress: {stress_level}")
+    
+    # Initialize risk score
     risk_score = 0
     
-    # Exercise factor
+    # ===== CALCULATE RISK FACTORS =====
+    
+    # Exercise factor (0-20 points)
     if "no" in exercise_frequency.lower() or "never" in exercise_frequency.lower():
         risk_score += 20
+        print("[RISK] +20 points for no exercise")
     elif "rarely" in exercise_frequency.lower():
         risk_score += 10
+        print("[RISK] +10 points for rarely exercising")
     
-    # Smoking factor
+    # Smoking factor (0-25 points)
     if "yes" in smoking_status.lower():
         risk_score += 25
+        print("[RISK] +25 points for smoking")
     
-    # High-risk hobbies factor
+    # High-risk hobbies factor (0-20 points)
     if "yes" in high_risk_hobbies.lower():
         risk_score += 20
+        print("[RISK] +20 points for high-risk hobbies")
     
-    # Stress factor
+    # Stress factor (0-15 points)
     try:
         stress = int(stress_level)
         if stress >= 8:
             risk_score += 15
+            print("[RISK] +15 points for high stress (8-10)")
         elif stress >= 6:
             risk_score += 10
+            print("[RISK] +10 points for moderate stress (6-7)")
         elif stress >= 4:
             risk_score += 5
+            print("[RISK] +5 points for mild stress (4-5)")
     except:
         risk_score += 5
+        print("[RISK] +5 points for invalid stress input")
     
-    # Determine risk level
+    # ===== DETERMINE RISK LEVEL =====
+    
     if risk_score <= 20:
         risk_level = "LOW"
         recommendation = "You qualify for the best rates and terms."
@@ -58,7 +73,10 @@ def risk_analysis_tool(exercise_frequency: str, smoking_status: str, high_risk_h
         risk_level = "HIGH"
         recommendation = "You may have higher premiums, but suitable coverage is available."
     
-    return f"""✓ RISK ASSESSMENT COMPLETE
+    # Log final result
+    print(f"[RISK]  FINAL - Score: {risk_score}/100, Level: {risk_level}")
+    
+    return f""" RISK ASSESSMENT COMPLETE
 Exercise: {exercise_frequency}
 Smoking: {smoking_status}
 High-Risk Hobbies: {high_risk_hobbies}
@@ -69,21 +87,3 @@ Risk Level: {risk_level}
 Recommendation: {recommendation}
 
 Proceeding to personalized recommendations..."""
-
-
-risk_analysis_agent = LlmAgent(
-    model="gemini-2.0-flash-exp",
-    name="risk_analysis_agent",
-    description="Analyzes user's risk profile.",
-    instruction="""You are the Risk Analysis Agent.
-
-Your job is to ask these questions ONE AT A TIME:
-1. Exercise frequency
-2. Smoking status
-3. High-risk hobbies
-4. Stress level (1-10)
-
-Then calculate risk assessment.
-Do NOT provide recommendations.""",
-    tools=[],
-)

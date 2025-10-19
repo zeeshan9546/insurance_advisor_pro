@@ -1,7 +1,6 @@
-#============================================
+# ============================================
 # FILE: advisor_app/auth_agent.py
 # ============================================
-from google.adk.agents import LlmAgent
 from config.gemini_client import ask_gemini
 
 
@@ -21,32 +20,19 @@ def authentication_tool(phone_number: str) -> str:
     Returns:
         Authentication result message
     """
+    print(f"[AUTH] Received phone: {phone_number}")
+    
     if validate_phone_number(phone_number):
-        return f"""✓ AUTHENTICATION SUCCESSFUL
+        print(f"[AUTH] VALID - Phone verified")
+        return f"""AUTHENTICATION SUCCESSFUL
 Phone Number: {phone_number}
 Status: Verified
 
 Your phone number has been verified. Proceeding to next step..."""
     else:
-        return f"""✗ AUTHENTICATION FAILED
+        print(f"[AUTH] INVALID - Invalid phone format")
+        return f""" AUTHENTICATION FAILED
 Phone Number: {phone_number}
 Status: Invalid
 
 Please provide a valid phone number with at least 10 digits."""
-
-
-# Keep the LlmAgent for reference/backward compatibility
-authentication_agent = LlmAgent(
-    model="gemini-2.0-flash-exp",
-    name="authentication_agent",
-    description="Authenticates users by verifying their phone number.",
-    instruction="""You are the Authentication Agent.
-
-Your job:
-1. Ask for phone number
-2. Validate it (10+ digits)
-3. Confirm authentication
-
-Do NOT proceed to any other stages.""",
-    tools=[],
-)
