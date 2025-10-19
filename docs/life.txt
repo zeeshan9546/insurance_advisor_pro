@@ -1,0 +1,19 @@
+# Life Insurance Policies
+
+## Basic Term Life
+- Coverage: $100,000
+- Premium: $20/month
+- Term: 20 years
+- Notes: Provides basic life insurance coverage for individuals.
+
+## Standard Term Life
+- Coverage: $500,000
+- Premium: $50/month
+- Term: 30 years
+- Notes: Offers more coverage with a longer term.
+
+## Whole Life Premium
+- Coverage: $1,000,000
+- Premium: $180/month
+- Term: Lifetime
+- Notes: Lifetime coverage with additional benefits for policyholders.

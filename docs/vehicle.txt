@@ -1,0 +1,19 @@
+# Vehicle Insurance Policies
+
+## Basic Liability
+- Coverage: Liability only
+- Premium: $70/month
+- Deductible: $1000
+- Notes: Minimum coverage required by law.
+
+## Comprehensive
+- Coverage: Full coverage
+- Premium: $150/month
+- Deductible: $500
+- Notes: Covers damages to your vehicle and third-party liability.
+
+## Premium Plus
+- Coverage: Full coverage + extras (roadside assistance, rental car)
+- Premium: $250/month
+- Deductible: $250
+- Notes: Maximum coverage and added perks for premium customers.

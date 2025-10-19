@@ -40,7 +40,7 @@ def storage_tool(confirmation: str) -> str:
     
     # Check if user confirmed
     if "yes" in confirmation.lower():
-        print("[STORAGE] ✓ User confirmed - proceeding with save")
+        print("[STORAGE]  User confirmed - proceeding with save")
         
         # Create storage directory
         ensure_storage_directory()
@@ -75,9 +75,9 @@ def storage_tool(confirmation: str) -> str:
             with open(policies_file, 'w') as f:
                 json.dump(existing_policies, f, indent=2)
             
-            print(f"[STORAGE] ✓ Successfully saved to {policies_file}")
+            print(f"[STORAGE]  Successfully saved to {policies_file}")
             
-            return f"""✓ SUCCESS! POLICY SAVED
+            return f""" SUCCESS! POLICY SAVED
 Policy ID: {policy_id}
 Status: Active
 Created: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
@@ -89,15 +89,15 @@ Your coverage begins immediately.
 Thank you for using Insurance Advisor!"""
             
         except Exception as e:
-            print(f"[STORAGE] ✗ ERROR during save: {str(e)}")
+            print(f"[STORAGE]  ERROR during save: {str(e)}")
             
-            return f"""✗ ERROR SAVING POLICY
+            return f""" ERROR SAVING POLICY
 Error: {str(e)}
 
 Please try again or contact support."""
     
     else:
-        print("[STORAGE] ✗ User did not confirm - policy not saved")
+        print("[STORAGE]  User did not confirm - policy not saved")
         
         return f"""No problem! Would you like to:
 1. Review and change your selection

@@ -20,7 +20,7 @@ pip install -r requirements.txt
 ### 2. Configure
 
 1. Get API key from [Google AI Studio](https://aistudio.google.com/apikey)
-2. Create `advisor_app/.env`:
+2. Create .env
 ```
 GOOGLE_GENAI_USE_VERTEXAI=FALSE
 GOOGLE_API_KEY=your_api_key_here

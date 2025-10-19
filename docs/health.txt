@@ -1,0 +1,4 @@
+Health Insurance Plans:
+- Basic Health: $5K annual coverage, $50/month, $500 deductible.
+- Standard Plus: $25K annual coverage, $120/month, $250 deductible.
+- Premium Comprehensive: $100K annual coverage, $250/month, $0 deductible.
