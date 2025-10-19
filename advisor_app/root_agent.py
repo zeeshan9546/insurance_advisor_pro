@@ -1,69 +1,46 @@
 # ============================================
 # FILE: advisor_app/root_agent.py
 # ============================================
+
 from google.adk.agents import Agent
 
-# Import tools from respective agent files
+# Import tools
 from .auth_agent import authentication_tool
+from .policy_owner_agent import policy_owner_tool
 from .profile_agent import profile_tool
 from .policy_agent import policy_selection_tool
 from .risk_agent import risk_analysis_tool
 from .recommendation_agent import recommendation_tool
 from .storage_agent import storage_tool
 
+print("[ROOT AGENT]  Initializing Insurance Advisor")
 
-# Root agent using ADK's Agent class with imported tools
+
+# Root agent with updated flow
 root_agent = Agent(
     name="root_agent",
     model="gemini-2.0-flash-exp",
-    description="Insurance Advisor - Multi-step agent that routes through authentication, profiling, policy selection, risk analysis, recommendations, and storage.",
-    instruction="""You are an Interactive Insurance Advisor. Guide users through a 6-step process:
+    description="Insurance policy advisor that retrieves existing user profiles and asks conditional questions",
+    instruction="""You are an insurance advisor. Guide users through 7 steps:
 
-STEP 1: Authentication
-- Ask: "Please provide your phone number for authentication"
-- Use authentication_tool with the phone number
-- Wait for user confirmation
+1. Authenticate: Ask phone number, use authentication_tool
+2. Policy Owner: Ask "for yourself or someone else?", use policy_owner_tool
+3. Profile: Show retrieved data if found, ask missing info, use profile_tool
+4. Policy Type: Ask Health/Life/Vehicle, use policy_selection_tool
+5. Risk: Ask exercise, smoking, hobbies, stress level, use risk_analysis_tool
+6. Recommendations: Get policies from RAG, show top 3, use recommendation_tool
+7. Confirmation: Summarize, confirm, save, use storage_tool
 
-STEP 2: Profile Collection
-- Ask: "What is your age?"
-- Ask: "What is your occupation?"
-- Ask: "What is your health status? (Excellent/Good/Fair/Poor)"
-- Ask: "Do you have any medical conditions?"
-- Use profile_tool with all details
-- Wait for user input
-
-STEP 3: Policy Selection
-- Ask: "What type of insurance: Health, Life, or Vehicle?"
-- Ask follow-up based on type (budget/coverage/vehicle type)
-- Use policy_selection_tool
-- Wait for user input
-
-STEP 4: Risk Analysis
-- Ask: "Do you exercise regularly?"
-- Ask: "Do you smoke?"
-- Ask: "Any high-risk hobbies?"
-- Ask: "Rate your stress level 1-10"
-- Use risk_analysis_tool
-- Wait for user input
-
-STEP 5: Recommendations
-- Ask: "Which of these 3 recommendations interests you?"
-- Use recommendation_tool
-- Wait for user input
-
-STEP 6: Storage & Confirmation
-- Ask: "Confirm all details correct? (Yes/No)"
-- Use storage_tool
-- Complete
-
-IMPORTANT:
-✓ Ask ONE question at a time
-✓ Wait for response after each question
-✓ Use tools after collecting information for each step
-✓ Never ask multiple questions at once
-✓ Be professional and helpful""",
+Rules:
+- Ask ONE question per message
+- Wait for response before next step
+- If profile found: acknowledge + show data + ask missing fields only
+- If profile not found: ask all fields
+- If for someone else: skip database lookup, ask all fields
+- Be conversational and clear""",
     tools=[
         authentication_tool,
+        policy_owner_tool,
         profile_tool,
         policy_selection_tool,
         risk_analysis_tool,
@@ -72,6 +49,9 @@ IMPORTANT:
     ],
 )
 
+print("[ROOT AGENT]  Agent initialized with 7 tools")
+
 
 if __name__ == "__main__":
+    print("[ROOT AGENT] Starting Insurance Advisor application...")
     root_agent.run()
