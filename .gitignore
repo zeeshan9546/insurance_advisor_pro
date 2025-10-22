@@ -1,7 +1,72 @@
+# ============================================
+# .gitignore - Insurance Advisor Pro
+# ============================================
+
+# Environment variables (IMPORTANT - Contains API keys)
 .env
+*.env
+
+# Virtual environment
 venv/
+env/
+ENV/
+.venv/
+
+# Python cache
 __pycache__/
-*.pyc
-.DS_Store
-.idea/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# User data (saved policies)
+user_data/user_policies.json
+
+# IDE settings
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+advisor_app.log
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# ADK auto-generated files
+.adk/

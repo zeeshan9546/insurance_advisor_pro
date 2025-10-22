@@ -1,19 +1,18 @@
-# Google Agent Development Kit
-google-adk==0.5.2
+# ============================================
+# Python Requirements - Insurance Advisor Pro
+# ============================================
 
-# Gemini API and related dependencies
+# Google ADK and Gemini API
+google-adk==0.5.2
 google-generativeai==0.4.1
 google-ai-generativelanguage==0.6.12
 
-# Environment variable management
+# Environment variables
 python-dotenv==1.0.0
 
 # Data validation
 pydantic==2.12.0
 pydantic-core==2.16.1
-
-# Google Cloud dependencies (optional, for Vertex AI support)
-google-cloud-aiplatform==1.43.0
 
 # HTTP and async support
 httpx==0.25.2
@@ -24,23 +23,17 @@ fastapi==0.109.0
 uvicorn==0.27.0
 starlette==0.35.0
 
-# JSON and serialization
+# Typing support
 typing-extensions==4.9.0
 
-# Async support
+# Async file operations
 aiofiles==23.2.1
 
 # CLI support
 click==8.1.7
-typer==0.9.1
 
-# Logging and monitoring
-python-json-logger==2.0.7
+# JSON handling (built-in, no need to install)
+# json - built-in
 
-# Development dependencies (optional)
-pytest==7.4.4
-pytest-asyncio==0.23.2
-black==24.1.1
-flake8==7.0.0
-isort==5.13.2
-
+# OS operations (built-in, no need to install)
+# os - built-in
