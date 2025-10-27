@@ -59,4 +59,19 @@ Answer based only on the provided documents.
 
     # Ask Gemini and return the result
     response = ask_gemini(prompt)
-    return response
+
+    print("[DEBUG] ask_rag() raw response:", type(response), response)
+    
+    if isinstance(response, str):
+        return response
+    elif hasattr(response, "text"):
+        return response.text
+    elif hasattr(response, "candidates"):
+        # Gemini often returns a structured object with candidates
+        try:
+            return response.candidates[0].content.parts[0].text
+        except Exception:
+            return str(response)
+    else:
+        return str(response)
+    # return response
